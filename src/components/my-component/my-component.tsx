@@ -57,7 +57,16 @@ export class MyComponent {
           {/* A FRENTE DO CARTÃO DE CRÉDITO */}
           <div class="credit-card__front">
             <div class="credit-card__brand">{this.CC_Brand}</div>
-            <div class="credit-card__chip">|____|</div>
+            {/* Acertar CSS dele depois */}
+            <div class="credit-card__chip">
+                <svg width="130" height="100" style="background-color: transparent" xmlns="http://www.w3.org/2000/svg">
+                <rect width="126" height="96" rx="15" ry="15" x="2" y="2" fill="silver" stroke="black" stroke-width="2px"/>
+                <!-- Square and left, up, right and down lines -->
+                <path d="M65,2 L65,35 M65,98 L65,65 M2,50 L45,50 M128,50 L85,50 L85,35 L45,35 L45,65 L85,65 L85,50" fill="none" stroke="black" stroke-width="2px"/>
+                <!-- Corner details -->
+                <path d="M2,20 L25,20 L45,35 M2,80 L25,80 L45,65 M128,20 L105,20 L85,35 M128,80 L105,80 L85,65" fill="none" stroke="black" stroke-width="2px"/>
+              </svg>
+            </div>
             <div class="credit-card__number">
               {/* CRIAR INPUTS */}
               <input type="text" class={this.focusedInput === 'CC_CardNumber' ? 'focused' : ''} readOnly placeholder="XXXX XXXX XXXX XXXX" />
