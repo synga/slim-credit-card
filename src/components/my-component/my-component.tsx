@@ -50,6 +50,22 @@ export class MyComponent {
    */
   handleFormInput = (event, inputField) => (this[inputField] = event.target.value);
 
+  /**
+   * Valida o ultimo campo, se estiver certo emite um evento com os dados do cartão
+   */
+  validateAndFinish() {
+
+  }
+
+  /**
+   * Valida o campo de formulário em questão e se estiver tudo certo passa para o próximo campo
+   * @param field Campo a ser validado
+   */
+  validateFieldAndContinue(field) {
+    // só pra não acusar erro por não estar usando........
+    field = field;
+  }
+
   render() {
     return <div class="component">
       <div class="credit-card">
@@ -59,26 +75,21 @@ export class MyComponent {
             <div class="credit-card__brand">{this.CC_Brand}</div>
             {/* Acertar CSS dele depois */}
             <div class="credit-card__chip">
-                <svg width="130" height="100" style="background-color: transparent" xmlns="http://www.w3.org/2000/svg">
+              <svg viewBox="0 0 130 100" style={{ backgroundColor: 'transparent' }} xmlns="http://www.w3.org/2000/svg">
                 <rect width="126" height="96" rx="15" ry="15" x="2" y="2" fill="silver" stroke="black" stroke-width="2px"/>
-                <!-- Square and left, up, right and down lines -->
                 <path d="M65,2 L65,35 M65,98 L65,65 M2,50 L45,50 M128,50 L85,50 L85,35 L45,35 L45,65 L85,65 L85,50" fill="none" stroke="black" stroke-width="2px"/>
-                <!-- Corner details -->
                 <path d="M2,20 L25,20 L45,35 M2,80 L25,80 L45,65 M128,20 L105,20 L85,35 M128,80 L105,80 L85,65" fill="none" stroke="black" stroke-width="2px"/>
               </svg>
             </div>
             <div class="credit-card__number">
               {/* CRIAR INPUTS */}
-              <input type="text" class={this.focusedInput === 'CC_CardNumber' ? 'focused' : ''} readOnly placeholder="XXXX XXXX XXXX XXXX" />
-              {this.CC_CardNumber}
+              <input type="text" class={this.focusedInput === 'CC_CardNumber' ? 'focused' : ''} readOnly placeholder="XXXX XXXX XXXX XXXX" value={this.CC_CardNumber} />
             </div>
             <div class="credit-card__dates">
-              <input type="text" class={this.focusedInput === 'CC_ValidUntil' ? 'focused' : ''} readOnly placeholder="XX/XX" />
-              {this.CC_ValidUntil}
+              <input type="text" class={this.focusedInput === 'CC_ValidUntil' ? 'focused' : ''} readOnly placeholder="XX/XX" value={this.CC_ValidUntil}/>
             </div>
             <div class="credit-card__owner">
-              <input type="text" class={this.focusedInput === 'CC_Owner' ? 'focused' : ''} readOnly placeholder="XXXXXXXX X XXXXX" />
-              {this.CC_Owner}
+              <input type="text" class={this.focusedInput === 'CC_Owner' ? 'focused' : ''} readOnly placeholder="XXXXXXXX X XXXXX" value={this.CC_Owner}/>
             </div>
           </div>
           {/* PARTE DE TRÁS DO CARTÃO DE CRÉDITO */}
@@ -86,14 +97,18 @@ export class MyComponent {
         </div>
       </div>
       <div class="card-form">
-        {this.CC_Fields.map((field) =>
-          <div class="card-form__block">
+        {this.CC_Fields.map((field, index) =>
+          <div class="card-form__block" id={`field` + index}>
             <input type="text" class="card-form__input"
               value={this[field]}
               onFocus={() => this.focusedInput = field }
               onBlur={() => this.focusedInput = null }
               onInput={(ev) => this.handleFormInput(ev, field) }/>
-            <button class="card-form__butt">next</button>
+              {
+                index === this.CC_Fields.length - 1
+                ? <button class="card-form__button" onClick={() => this.validateAndFinish()}>finish</button>
+                : <button class="card-form__button" onClick={() => this.validateFieldAndContinue(field)}>next</button>
+              }
           </div>
         )}
       </div>

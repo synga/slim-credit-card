@@ -26,6 +26,12 @@
     border-radius: 10px;
 }
 
+.credit-card__chip svg {
+  width: 40px;
+  height: auto;
+  margin-left: 5%;
+}
+
 /* .credit-card:hover .credit-card__inner {
   transform: rotateY(180deg);
 } */
@@ -42,6 +48,11 @@
 .credit-card__back {
   transform: rotateY(180deg);
   z-index: 1;
+}
+
+.credit-card__inner input {
+  border-radius: 5px;
+  padding: 2px 5px
 }
 
 /* Credit Card Front */
@@ -71,7 +82,8 @@
 }
 
 .credit-card__inner.black .focused {
-  box-shadow: 0px 0px 10px 2px rgba(240,240,36,1);
+  /* box-shadow: 0px 0px 10px 2px rgba(240,240,36,1); */
+  border: 2px solid rgba(240,240,36,1);
 }
 
 .credit-card__inner.black input {
@@ -92,25 +104,44 @@
 .card-form {
   width: 100%;
   height: auto;
-  display: grid;
-  grid-template: repeat(4, 1fr) / 1fr;
+  display: flex;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory; 
+}
+
+.card-form::-webkit-scrollbar {
+  display: none;
 }
 
 .card-form__block {
-  padding: 20px;
+  padding: 20px 0;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  scroll-behavior: smooth;
 }
 
 .card-form__block input {
-  max-width: 480px;
-  min-width: 360px;
+  max-width: 260px;
   width: 100%;
+  border-radius: 5px;
+  border: 1px solid gray;
+  padding: 5px 10px;
+  font-size: 1rem;
+  box-shadow: 10px 10px 14px 1px rgba(00,00,00,0.2);
+}
+
+.card-form__block input:active, .card-form__block input:focus {
+  outline: none;
 }
 
 .card-form__block button {
+  cursor: pointer;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', monospace;
   max-width: 120px;
   width: 100%;
@@ -126,4 +157,9 @@
   border-bottom-left-radius: 5px;
   border-top-left-radius: 50px;
   box-shadow: 10px 10px 14px 1px rgba(00,00,00,0.2);
+}
+
+.card-form__block button:active, .card-form__block button:focus {
+  outline: none;
+  /* animar? background-image: linear-gradient(to right bottom, #2c3fbbB3, #5240b1B3, #6743a7B3, #75479eB3, #7f4c96B3); */
 }
